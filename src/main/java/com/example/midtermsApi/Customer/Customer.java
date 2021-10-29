@@ -1,12 +1,15 @@
 package com.example.midtermsApi.Customer;
 
 
+import com.example.midtermsApi.Item.Item;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 // ====================================================================================================================================================================================== \\
 
@@ -27,6 +30,13 @@ public class Customer {
 
     @NotNull
     private String password;
+
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "customer")
+    private Set<Item> items = new HashSet<>();
+
 
     public Customer() {
     }

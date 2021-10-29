@@ -6,7 +6,7 @@ public enum Status {
     USER_LOGIN,
     USER_LOGOUT,
     USER_ALREADY_EXISTS,
-    DELETE_USER,
+    DELETE_IS_SUCCESSFUL,
     REQUEST_FAILED
 
 }

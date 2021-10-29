@@ -93,13 +93,13 @@ public class CustomerController {
             throw new IllegalStateException("customer with id " + id + " does not exists");
         }
         customerRepository.deleteById(id);
-        return Status.DELETE_USER;
+        return Status.DELETE_IS_SUCCESSFUL;
     }
 
 
     @DeleteMapping("/customers/deleteall")
     public Status deleteCustomers() {
         customerRepository.deleteAll();
-        return Status.DELETE_USER;
+        return Status.DELETE_IS_SUCCESSFUL;
     }
 }

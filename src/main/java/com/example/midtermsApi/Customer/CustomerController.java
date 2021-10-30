@@ -74,20 +74,20 @@ public class CustomerController {
     }
 
 
-    @PutMapping("/customers/{customerid}")
-    public Customer updatePost(@PathVariable Long customerid, @Valid @RequestBody Customer customerRequest) {
-        return customerRepository.findById(customerid).map(customer -> {
+    @PutMapping("/customers/{customerId}")
+    public Customer updatePost(@PathVariable Long customerId, @Valid @RequestBody Customer customerRequest) {
+        return customerRepository.findById(customerId).map(customer -> {
             customer.setEmail(customerRequest.getEmail());
             customer.setEmail(customerRequest.getEmail());
             customer.setName(customerRequest.getName());
             customer.setPassword(customerRequest.getPassword());
             return customerRepository.save(customer);
-        }).orElseThrow(() -> new RuntimeException("Customer id " + customerid + " not found"));
+        }).orElseThrow(() -> new RuntimeException("Customer id " + customerId + " not found"));
     }
 
 
-    @DeleteMapping("/customers/{customerid}")
-    public Condition deleteCustomer(@PathVariable("customerid") Long id) {
+    @DeleteMapping("/customers/{customerId}")
+    public Condition deleteCustomer(@PathVariable("customerId") Long id) {
         boolean exists = customerRepository.existsById(id);
         if (!exists) {
             throw new IllegalStateException("customer with id " + id + " does not exists");
@@ -97,7 +97,7 @@ public class CustomerController {
     }
 
 
-    @DeleteMapping("/customers/deleteall")
+    @DeleteMapping("/customers/deleteAll")
     public Condition deleteCustomers() {
         customerRepository.deleteAll();
         return Condition.ALL_USERS_DELETED;

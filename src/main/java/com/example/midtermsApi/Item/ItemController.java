@@ -30,39 +30,39 @@ public class ItemController {
     }
 
 
-    @PostMapping("/customers/{customerid}/items")
-    public Item createItem(@PathVariable (value = "customerid") Long customerid,
+    @PostMapping("/customers/{customerId}/items")
+    public Item createItem(@PathVariable (value = "customerId") Long customerId,
                            @Valid @RequestBody Item item) {
-        return customerRepository.findById(customerid).map(customer -> {
+        return customerRepository.findById(customerId).map(customer -> {
             item.setCustomer(customer);
             return itemRepository.save(item);
-        }).orElseThrow(() -> new RuntimeException("Customer id " + customerid + " not found"));
+        }).orElseThrow(() -> new RuntimeException("Customer id " + customerId + " not found"));
     }
 
-    @PutMapping("/customers/{customerid}/items/{itemid}")
-    public Item updateItem(@PathVariable (value = "customerid") Long customerid,
-                           @PathVariable (value = "itemid") Long itemid,
+    @PutMapping("/customers/{customerId}/items/{itemId}")
+    public Item updateItem(@PathVariable (value = "customerId") Long customerId,
+                           @PathVariable (value = "itemId") Long itemId,
                            @Valid @RequestBody Item itemRequest) {
-        if(!customerRepository.existsById(customerid)) {
-            throw new RuntimeException("Item id " + customerid + " not found");
+        if(!customerRepository.existsById(customerId)) {
+            throw new RuntimeException("Item id " + customerId + " not found");
         }
 
-        return itemRepository.findById(itemid).map(item -> {
+        return itemRepository.findById(itemId).map(item -> {
             item.setProduct_name(itemRequest.getProduct_name());
             item.setManufacturer_name(itemRequest.getManufacturer_name());
             item.setPrice(itemRequest.getPrice());
             return itemRepository.save(item);
-        }).orElseThrow(() -> new RuntimeException("Customer id " + itemid + "not found"));
+        }).orElseThrow(() -> new RuntimeException("Customer id " + itemId + "not found"));
     }
 
 
-    @DeleteMapping(value = "/customers/{customerid}/items/{itemid}")
-    public Condition deleteItem(@PathVariable("itemid") Long itemid) {
-        boolean exists = itemRepository.existsById(itemid);
+    @DeleteMapping(value = "/customers/{customerId}/items/{itemId}")
+    public Condition deleteItem(@PathVariable("itemId") Long itemId) {
+        boolean exists = itemRepository.existsById(itemId);
         if (!exists) {
-            throw new IllegalStateException("item with id " + itemid + " does not exists");
+            throw new IllegalStateException("item with id " + itemId + " does not exists");
         }
-        itemRepository.deleteById(itemid);
+        itemRepository.deleteById(itemId);
         return Condition.DELETE_IS_SUCCESSFUL;
     }
 

@@ -2,13 +2,15 @@ package com.example.midtermsApi.Item;
 
 
 import com.example.midtermsApi.Customer.CustomerRepository;
-import com.example.midtermsApi.Resources.ResourceNotFoundException;
-import com.example.midtermsApi.Resources.Status;
+import com.example.midtermsApi.Resources.Condition;
+import com.example.midtermsApi.Resources.RuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+// ====================================================================================================================================================================================== \\
 
 @RestController
 public class ItemController {
@@ -36,7 +38,7 @@ public class ItemController {
         return customerRepository.findById(customerid).map(customer -> {
             item.setCustomer(customer);
             return itemRepository.save(item);
-        }).orElseThrow(() -> new ResourceNotFoundException("Customer id " + customerid + " not found"));
+        }).orElseThrow(() -> new RuntimeException("Customer id " + customerid + " not found"));
     }
 
     @PutMapping("/customers/{customerid}/items/{itemid}")
@@ -44,32 +46,32 @@ public class ItemController {
                            @PathVariable (value = "itemid") Long itemid,
                            @Valid @RequestBody Item itemRequest) {
         if(!customerRepository.existsById(customerid)) {
-            throw new ResourceNotFoundException("Item id " + customerid + " not found");
+            throw new RuntimeException("Item id " + customerid + " not found");
         }
 
         return itemRepository.findById(itemid).map(item -> {
-            item.setItem_name(itemRequest.getItem_name());
-            item.setCategory_name(itemRequest.getCategory_name());
+            item.setProduct_name(itemRequest.getProduct_name());
+            item.setManufacturer_name(itemRequest.getManufacturer_name());
             item.setPrice(itemRequest.getPrice());
             return itemRepository.save(item);
-        }).orElseThrow(() -> new ResourceNotFoundException("Customer id " + itemid + "not found"));
+        }).orElseThrow(() -> new RuntimeException("Customer id " + itemid + "not found"));
     }
 
 
     @DeleteMapping(value = "/customers/{customerid}/items/{itemid}")
-    public Status deleteItem(@PathVariable("itemid") Long itemid) {
+    public Condition deleteItem(@PathVariable("itemid") Long itemid) {
         boolean exists = itemRepository.existsById(itemid);
         if (!exists) {
             throw new IllegalStateException("item with id " + itemid + " does not exists");
         }
         itemRepository.deleteById(itemid);
-        return Status.DELETE_IS_SUCCESSFUL;
+        return Condition.DELETE_IS_SUCCESSFUL;
     }
 
     @DeleteMapping("/customers/all/items/all")
-    public Status deleteItems() {
+    public Condition deleteItems() {
         customerRepository.deleteAll();
-        return Status.DELETE_IS_SUCCESSFUL;
+        return Condition.DELETE_IS_SUCCESSFUL;
     }
 }
 

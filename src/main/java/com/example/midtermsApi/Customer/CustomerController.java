@@ -1,7 +1,7 @@
 package com.example.midtermsApi.Customer;
 
 
-import com.example.midtermsApi.Resources.Status;
+import com.example.midtermsApi.Resources.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class CustomerController {
 
 
     @PostMapping("/customers/register")
-    public Status registerCustomer(@Valid @RequestBody Customer newCustomer) {
+    public Condition registerCustomer(@Valid @RequestBody Customer newCustomer) {
         List<Customer> customers = customerRepository.findAll();
 
         System.out.println("New customer: " + newCustomer.toString());
@@ -42,35 +42,35 @@ public class CustomerController {
 
             if (customer.equals(newCustomer)) {
                 System.out.println("Customer Already exists!");
-                return Status.USER_ALREADY_EXISTS;
+                return Condition.USER_ALREADY_EXISTS;
             }
         }
         customerRepository.save(newCustomer);
-        return Status.USER_REGISTERED;
+        return Condition.USER_REGISTERED;
     }
 
 
     @PostMapping("/customers/login")
-    public Status loginCustomer(@Valid @RequestBody Customer customer) {
+    public Condition loginCustomer(@Valid @RequestBody Customer customer) {
         List<Customer> customers = customerRepository.findAll();
         for (Customer other : customers) {
             if (other.equals(customer)) {
 
-                return Status.USER_LOGIN;
+                return Condition.USER_LOGIN;
             }
-        }        return Status.REQUEST_FAILED;
+        }        return Condition.REQUEST_FAILED;
     }
 
 
     @PostMapping("/customers/logout")
-    public Status logOutCustomer(@Valid @RequestBody Customer customer) {
+    public Condition logOutCustomer(@Valid @RequestBody Customer customer) {
         List<Customer> customers = customerRepository.findAll();
         for (Customer other : customers) {
             if (other.equals(customer)) {
 
-                return Status.USER_LOGOUT;
+                return Condition.USER_LOGOUT;
             }
-        }        return Status.REQUEST_FAILED;
+        }        return Condition.REQUEST_FAILED;
     }
 
 
@@ -87,19 +87,19 @@ public class CustomerController {
 
 
     @DeleteMapping("/customers/{customerid}")
-    public Status deleteCustomer(@PathVariable("customerid") Long id) {
+    public Condition deleteCustomer(@PathVariable("customerid") Long id) {
         boolean exists = customerRepository.existsById(id);
         if (!exists) {
             throw new IllegalStateException("customer with id " + id + " does not exists");
         }
         customerRepository.deleteById(id);
-        return Status.DELETE_IS_SUCCESSFUL;
+        return Condition.DELETE_IS_SUCCESSFUL;
     }
 
 
     @DeleteMapping("/customers/deleteall")
-    public Status deleteCustomers() {
+    public Condition deleteCustomers() {
         customerRepository.deleteAll();
-        return Status.DELETE_IS_SUCCESSFUL;
+        return Condition.DELETE_IS_SUCCESSFUL;
     }
 }

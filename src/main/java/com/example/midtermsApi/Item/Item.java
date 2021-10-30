@@ -11,38 +11,43 @@ import java.util.Objects;
 @Table(name = "item")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
+// ====================================================================================================================================================================================== \\
+
 public class Item {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotBlank
-    private String item_name;
-
+    private String product_name;
     @NotBlank
-    private String category_name;
-
+    private String manufacturer_name;
     @NotBlank
     private int price;
+
 
     public Item() {
     }
 
-    public Item(@NotBlank String item_name,
-                @NotBlank String category_name,
+
+    public Item(@NotBlank String product_name,
+                @NotBlank String manufacturer_name,
                 @NotBlank int price) {
-        this.item_name = item_name;
-        this.category_name = category_name;
+        this.product_name = product_name;
+        this.manufacturer_name = manufacturer_name;
         this.price = price;
     }
 
-    public Item(@NotBlank String item_name,
-                @NotBlank String category_name,
+
+    public Item(@NotBlank String product_name,
+                @NotBlank String manufacturer_name,
                 @NotBlank Integer price) {
-        this.item_name = item_name;
-        this.category_name = category_name;
+        this.product_name = product_name;
+        this.manufacturer_name = manufacturer_name;
         this.price = price;
     }
+
+
 
     public Long getId() {
         return id;
@@ -52,20 +57,20 @@ public class Item {
         this.id = id;
     }
 
-    public String getItem_name() {
-        return item_name;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
+    public void setProduct_name(String item_name) {
+        this.product_name = item_name;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getManufacturer_name() {
+        return manufacturer_name;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setManufacturer_name(String category_name) {
+        this.manufacturer_name = category_name;
     }
 
     public int getPrice() {
@@ -85,29 +90,32 @@ public class Item {
     }
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item= (Item) o;
         return
-//              Objects.equals(email, customer.email) &&
-                Objects.equals(item_name, item.item_name) &&
-                        Objects.equals(category_name, item.category_name) &&
+                Objects.equals(product_name, item.product_name) &&
+                        Objects.equals(manufacturer_name, item.manufacturer_name) &&
                         Objects.equals(price, item.price);
     }
 
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, item_name, category_name, price);
+        return Objects.hash(id, product_name, manufacturer_name, price);
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return " " +
+                "Customer" +
+                " " +
                 "id=" + id +
-                ", item_name='" + item_name + '\'' +
-                ", category='" + category_name + '\'' +
+                ", item_name='" + product_name + '\'' +
+                ", category='" + manufacturer_name + '\'' +
                 ", price='" + price + '\'' +
                 '}';
     }

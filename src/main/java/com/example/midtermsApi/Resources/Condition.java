@@ -1,6 +1,6 @@
 package com.example.midtermsApi.Resources;
 
-public enum Status {
+public enum Condition {
 
     USER_REGISTERED,
     USER_LOGIN,

@@ -38,7 +38,7 @@ public class CustomerController {
         System.out.println("New customer: " + newCustomer.toString());
 
         for (Customer customer : customers) {
-            System.out.println("Registered customer: " + newCustomer.toString());
+            System.out.println("Registered customer: " + newCustomer);
 
             if (customer.equals(newCustomer)) {
                 System.out.println("Customer Already exists!");
@@ -100,6 +100,6 @@ public class CustomerController {
     @DeleteMapping("/customers/deleteall")
     public Condition deleteCustomers() {
         customerRepository.deleteAll();
-        return Condition.DELETE_IS_SUCCESSFUL;
+        return Condition.ALL_USERS_DELETED;
     }
 }

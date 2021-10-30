@@ -30,18 +30,14 @@ public class Item {
     }
 
 
-    public Item(@NotBlank String product_name,
-                @NotBlank String manufacturer_name,
-                @NotBlank int price) {
+    public Item(@NotBlank String product_name, @NotBlank String manufacturer_name, @NotBlank int price) {
         this.product_name = product_name;
         this.manufacturer_name = manufacturer_name;
         this.price = price;
     }
 
 
-    public Item(@NotBlank String product_name,
-                @NotBlank String manufacturer_name,
-                @NotBlank Integer price) {
+    public Item(@NotBlank String product_name, @NotBlank String manufacturer_name, @NotBlank Integer price) {
         this.product_name = product_name;
         this.manufacturer_name = manufacturer_name;
         this.price = price;
@@ -64,6 +60,8 @@ public class Item {
     public void setProduct_name(String item_name) {
         this.product_name = item_name;
     }
+
+
 
     public String getManufacturer_name() {
         return manufacturer_name;
@@ -103,6 +101,7 @@ public class Item {
     }
 
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id, product_name, manufacturer_name, price);
@@ -119,6 +118,7 @@ public class Item {
                 ", price='" + price + '\'' +
                 '}';
     }
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerid", nullable = false)

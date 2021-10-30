@@ -15,8 +15,10 @@ import java.util.List;
 @RestController
 public class ItemController {
 
+
     @Autowired
     private ItemRepository itemRepository;
+
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -27,10 +29,6 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
-    @GetMapping("/customers/{id}/items")
-    public List<Item> getAllCommentsByPostId(@PathVariable(value = "id") Long id) {
-        return itemRepository.findByCustomerId(id);
-    }
 
     @PostMapping("/customers/{customerid}/items")
     public Item createItem(@PathVariable (value = "customerid") Long customerid,
@@ -71,7 +69,7 @@ public class ItemController {
     @DeleteMapping("/customers/all/items/all")
     public Condition deleteItems() {
         customerRepository.deleteAll();
-        return Condition.DELETE_IS_SUCCESSFUL;
+        return Condition.ALL_ITEMS_DELETED;
     }
 }
 

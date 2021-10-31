@@ -29,6 +29,11 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
+    @GetMapping("/customers/{id}/items")
+    public List<Item> getAllCommentsByPostId(@PathVariable (value = "id") Long id) {
+        return itemRepository.findByCustomerId(id);
+    }
+
 
     @PostMapping("/customers/{customerId}/items")
     public Item createItem(@PathVariable (value = "customerId") Long customerId,

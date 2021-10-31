@@ -77,7 +77,7 @@ public class CustomerController {
     @PutMapping("/customers/{customerId}")
     public Customer updatePost(@PathVariable Long customerId, @Valid @RequestBody Customer customerRequest) {
         return customerRepository.findById(customerId).map(customer -> {
-            customer.setEmail(customerRequest.getEmail());
+
             customer.setEmail(customerRequest.getEmail());
             customer.setName(customerRequest.getName());
             customer.setPassword(customerRequest.getPassword());

@@ -18,6 +18,7 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Customer {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +37,7 @@ public class Customer {
             fetch = FetchType.LAZY,
             mappedBy = "customer")
     private Set<Item> items = new HashSet<>();
+
 
 
     public Customer() {
@@ -60,6 +62,8 @@ public class Customer {
         this.id = id;
     }
 
+
+
     public String getEmail() {
         return email;
     }
@@ -83,6 +87,8 @@ public class Customer {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
